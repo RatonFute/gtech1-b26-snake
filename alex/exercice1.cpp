@@ -20,7 +20,7 @@ int main (int argc, char** argv)
     }
     
     SDL_Delay(3000);
-    SDL_DestroyWindow(pWindow);
+    SDL_DestroyWindow(fenetre);
     SDL_Quit();
     return 0;
 }
