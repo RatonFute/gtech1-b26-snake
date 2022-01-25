@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "exercice1.hpp"
 
 int main (int argc, char** argv)
 {
