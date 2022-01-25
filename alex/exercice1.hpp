@@ -2,12 +2,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-class MainsSDLWindow
+/*class MainsSDLWindow
 {
 private:
     /* data */
-public:
+/*public:
     MainsSDLWindow(void);
+    
 
 
     ~MainsSDLWindow();
