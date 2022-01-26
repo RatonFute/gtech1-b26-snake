@@ -2,35 +2,55 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-SDL_Window* fenetre;
-SDL_Renderer* renderer;
 
 int main (int argc, char** argv)
 {
     SDL_Window* fenetre;
-    if(SDL_Init(SDL_INIT_VIDEO) < 0){
-        fprintf(stdout,"Fail");
-        return -1;
+    SDL_Renderer* pRenderer;
+    if(SDL_VideoInit(NULL) < 0)
+    {
+        printf("Fail :%s",SDL_GetError());
+        return EXIT_FAILURE;
     }
-    fenetre = SDL_CreateWindow("Test",SDL_WINDOWPOS_CENTERED,
-        SDL_WINDOWPOS_CENTERED,
-        640,
-        480,
-        SDL_WINDOW_RESIZABLE);
-    if (fenetre == NULL){
+    fenetre = SDL_CreateWindow("Snake",SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 800, 0);
+    if (fenetre == NULL)
+    {
         printf("Erreur lors de la creation d'une fenetre : %s", SDL_GetError());
         return EXIT_FAILURE;
     }
-    renderer = SDL_CreateRenderer(fenetre, -1, SDL_RENDERER_ACCELERATED|SDL_RENDERER_PRESENTVSYNC);
-    if (renderer == NULL){
+    pRenderer = SDL_CreateRenderer(fenetre, -1, SDL_RENDERER_ACCELERATED|SDL_RENDERER_PRESENTVSYNC);
+    if (pRenderer == NULL)
+    {
         printf("Erreur lors de la creation du renderer : %s", SDL_GetError());
         return EXIT_FAILURE;
     }
-    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-    SDL_RenderDrawLine(renderer,0,90,45,120);
-    SDL_Delay(5000);
-    SDL_DestroyRenderer(renderer);
+    bool Game{true};
+    SDL_Rect rectangle = {150,150,250,250};    
+    while (Game)
+    {
+        SDL_Event events;
+        while(SDL_PollEvent(&events))
+        {
+            switch(events.type)
+            {
+                case SDL_QUIT:
+                Game = false;
+                break;
+            }
+        }
+        SDL_SetRenderDrawColor(pRenderer, 0, 0, 0, 0);
+        SDL_RenderClear(pRenderer);
+
+        SDL_SetRenderDrawColor(pRenderer, 0, 255, 0, 255);
+        SDL_RenderFillRect(pRenderer, &rectangle);
+        
+        SDL_RenderPresent(pRenderer);
+        SDL_Delay(10);
+
+    }
+
+    SDL_DestroyRenderer(pRenderer);
     SDL_DestroyWindow(fenetre);
     SDL_Quit();
-    return 0;
+    return EXIT_SUCCESS;
 }
