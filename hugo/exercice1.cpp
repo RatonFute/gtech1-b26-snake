@@ -5,8 +5,9 @@
 
 
 
-int MainSDLWindow::init(){
-        
+int MainSDLWindow::init()
+{
+     
     if(SDL_VideoInit(NULL) < 0)
     {
         printf("Fail :%s",SDL_GetError());
@@ -31,9 +32,12 @@ int MainSDLWindow::init(){
 }
 
 int MainSDLWindow::game(){
+    int x;
+    int y;
+    int incrx=1;
+    int incry=0;
+    SDL_Rect rectangle = {x,y,50,50};
     
-    
-    SDL_Rect rectangle = {150,150,250,250};
     while (Game)
     {
         SDL_Event events;
@@ -55,6 +59,33 @@ int MainSDLWindow::game(){
         SDL_RenderPresent(renderer);
         SDL_Delay(10);
 
+        
+        rectangle.x=rectangle.x + incrx;
+        rectangle.y=rectangle.y + incry;
+        
+        const Uint8 *keystates = SDL_GetKeyboardState(NULL);
+
+        if (keystates[SDL_SCANCODE_UP]) {
+            incrx=0;
+            incry=-1;
+            
+        }
+        if (keystates[SDL_SCANCODE_DOWN]) {
+            incrx=0;
+            incry=1;
+            
+        }
+        if (keystates[SDL_SCANCODE_LEFT]) {
+            incry=0;
+            incrx=-1;
+            
+        }
+        if (keystates[SDL_SCANCODE_RIGHT]) {
+            incry=0;
+            incrx=1;
+            
+        }
+        
     }
 
     SDL_DestroyRenderer(renderer);
@@ -62,29 +93,29 @@ int MainSDLWindow::game(){
     SDL_Quit();
     return EXIT_SUCCESS;
 }
-
-/*int MainSDLWindow::getRenderer(){
+/*
+int MainSDLWindow::getRenderer(){
 
     //SDL_Renderer* renderer;
     return 0;
     
 }
-
+*/
 MainSDLWindow::MainSDLWindow(){
-        window = NULL;
-        renderer=NULL;
+    window = NULL;
+    renderer=NULL;
 }
 
 MainSDLWindow::~MainSDLWindow(){
     //delete window;
     //delete renderer;
     }
-*/
 
-    int main(void){
-        MainSDLWindow main_window;
-        main_window.init();
-        main_window.game();
+
+int main(void){
+    MainSDLWindow main_window;
+    main_window.init();
+    main_window.game();
         
         
         
