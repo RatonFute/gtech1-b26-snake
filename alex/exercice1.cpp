@@ -25,8 +25,14 @@ int main (int argc, char** argv)
         return EXIT_FAILURE;
     }
     bool Game{true};
-    SDL_Rect rectangle = {150,150,250,250};    
-    while (Game)
+    Uint32 frame_rate = 160;
+    SDL_Rect rectangle;
+     rectangle.x = 350;
+     rectangle.y = 350;
+     rectangle.h = 50;
+     rectangle.w = 50;
+
+    while (Game == true)
     {
         SDL_Event events;
         while(SDL_PollEvent(&events))
@@ -37,18 +43,40 @@ int main (int argc, char** argv)
                 Game = false;
                 break;
             }
+            const Uint8 *keystates = SDL_GetKeyboardState(NULL);
+            if (keystates[SDL_SCANCODE_UP]) 
+            {
+                rectangle.y -= 5;
+                SDL_Delay(10);
+                break;
+            }
+            if (keystates[SDL_SCANCODE_DOWN]) 
+            {
+                rectangle.y += 5;
+                SDL_Delay(10);
+                break;
+            }
+            if (keystates[SDL_SCANCODE_LEFT]) 
+            {
+                rectangle.x -= 5;
+                SDL_Delay(10);
+                break;
+            }
+            if (keystates[SDL_SCANCODE_RIGHT]) 
+            {
+                rectangle.x += 5;
+                SDL_Delay(10);
+                break;
+            }
         }
         SDL_SetRenderDrawColor(pRenderer, 0, 0, 0, 0);
         SDL_RenderClear(pRenderer);
 
         SDL_SetRenderDrawColor(pRenderer, 0, 255, 0, 255);
         SDL_RenderFillRect(pRenderer, &rectangle);
-        
         SDL_RenderPresent(pRenderer);
-        SDL_Delay(10);
-
+        SDL_Delay(100);
     }
-
     SDL_DestroyRenderer(pRenderer);
     SDL_DestroyWindow(fenetre);
     SDL_Quit();
