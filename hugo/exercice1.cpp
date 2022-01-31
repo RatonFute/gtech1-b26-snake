@@ -116,9 +116,7 @@ int main(void){
     MainSDLWindow main_window;
     main_window.init();
     main_window.game();
-        
-        
-        
+      
         
     
 }
