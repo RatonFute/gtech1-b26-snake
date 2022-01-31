@@ -1,8 +1,8 @@
 #include <SDL2/SDL.h>
 #include <stdio.h>
 #include <stdlib.h>
-#ifndef EXERCICE1_HPP
-#define EXERCICE1_HPP
+#ifndef SNAKE_HPP
+#define SNAKE_HPP
 
 class MainSDLWindow{
     public:
