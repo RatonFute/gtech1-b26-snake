@@ -9,21 +9,16 @@ class MainSDLWindow{
 
         MainSDLWindow(void);
         ~MainSDLWindow(void);         
-        int init(void);                                                 //initiate the window, check errors
-        int game(int frame_rate_ms, int snake_speed_fpc);               //Game loop, calculate and draw
+        int init(void);
+        int game(void);
         //int getRenderer(void);
         
 
     private:
-        //window management
         SDL_Window* window;
         SDL_Renderer* renderer;
-        //Game loop management
         bool Game{true};
-        bool Lose{false};
-        SDL_Event event;
-        //Frame rate management
-        
+        bool lose{false};
 };
 
 /*class Snake{

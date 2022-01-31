@@ -31,39 +31,23 @@ int MainSDLWindow::init()
     return EXIT_SUCCESS;
 }
 
-int MainSDLWindow::game(){
+int MainSDLWindow::game(int frame_rate_ms, int snake_speed_fpc){
     int x;
     int y;
     int incrx=1;
     int incry=0;
     SDL_Rect rectangle = {x,y,20,20};
-    
-    
-    while (Game)
-    {
-        SDL_Event events;
-        while(SDL_PollEvent(&events))
-        {
-            switch(events.type)
-            {
-                case SDL_QUIT:
-                Game = false;
-                break;
-            }
-        }
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-        SDL_RenderClear(renderer);
+        
+    int frame_delay;
+    Uint32 frame_start;
 
-        SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-        SDL_RenderFillRect(renderer, &rectangle);
-        
-        SDL_RenderPresent(renderer);
-        SDL_Delay(10);
+    // Start the main game loop:
+    Uint32 iter = 0;
+    do {
+        // Begin of current frame:
+        frame_start = SDL_GetTicks();
 
-        
-        rectangle.x=rectangle.x + incrx;
-        rectangle.y=rectangle.y + incry;
-        
+        // Check for pressed keyboard keys:  <--- IMPORTANT: Le claier est toujours "lu" à 50Hz!
         const Uint8 *keystates = SDL_GetKeyboardState(NULL);
 
         if (keystates[SDL_SCANCODE_UP]) {
@@ -87,67 +71,111 @@ int MainSDLWindow::game(){
             
         }
 
-        if(rectangle.x>580 || rectangle.x<0 || rectangle.y>580 || rectangle.y<0){
-            Game=false;
+        // Make the game to evolve / snake to move, only every =snake_speed_fpc= frames:
+        if (iter % snake_speed_fpc == 0) {
+        // Next iteration of the game:
+            
+            rectangle.x=rectangle.x + incrx;
+            rectangle.y=rectangle.y + incry;
+
+            if(rectangle.x>580 || rectangle.x<0 || rectangle.y>580 || rectangle.y<0){
+                Lose=true;
+            }
+
+            
         }
-    }
 
-    if (!Game){
-        SDL_Rect D1 = {70,200,20,90};
-        SDL_Rect D2 = {70,200,50,20};
-        SDL_Rect D3 = {70,270,50,20};
-        SDL_Rect D4 = {120,220,20,50};
-        SDL_Rect E1 = {150,200,20,90};
-        SDL_Rect E2 = {150,200,50,20};
-        SDL_Rect E3 = {150,235,50,20};
-        SDL_Rect E4 = {150,270,50,20};
-        SDL_Rect A1 = {210,220,20,70};
-        SDL_Rect A2 = {250,220,20,70};
-        SDL_Rect A3 = {230,200,20,20};
-        SDL_Rect A4 = {230,240,20,20};
-        SDL_Rect D11 = {280,200,20,90};
-        SDL_Rect D12 = {280,200,50,20};
-        SDL_Rect D13 = {280,270,50,20};
-        SDL_Rect D14 = {330,220,20,50};
-
-
+        // Render the game:
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
         SDL_RenderClear(renderer);
 
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
         SDL_RenderFillRect(renderer, &rectangle);
-
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-        SDL_RenderFillRect(renderer, &D1);
-        SDL_RenderFillRect(renderer, &D2);
-        SDL_RenderFillRect(renderer, &D3);
-        SDL_RenderFillRect(renderer, &D4);
-        SDL_RenderFillRect(renderer, &E1);
-        SDL_RenderFillRect(renderer, &E2);
-        SDL_RenderFillRect(renderer, &E3);
-        SDL_RenderFillRect(renderer, &E4);
-        SDL_RenderFillRect(renderer, &A1);
-        SDL_RenderFillRect(renderer, &A2);
-        SDL_RenderFillRect(renderer, &A3);
-        SDL_RenderFillRect(renderer, &A4);
-        SDL_RenderFillRect(renderer, &D11);
-        SDL_RenderFillRect(renderer, &D12);
-        SDL_RenderFillRect(renderer, &D13);
-        SDL_RenderFillRect(renderer, &D14);
-        
         
         SDL_RenderPresent(renderer);
-        SDL_Delay(5000);
+        SDL_Delay(30);  
 
-    }
+        if (Lose){
+                SDL_Rect D1 = {70,200,20,90};
+                SDL_Rect D2 = {70,200,50,20};
+                SDL_Rect D3 = {70,270,50,20};
+                SDL_Rect D4 = {120,220,20,50};
+                SDL_Rect E1 = {150,200,20,90};
+                SDL_Rect E2 = {150,200,50,20};
+                SDL_Rect E3 = {150,235,50,20};
+                SDL_Rect E4 = {150,270,50,20};
+                SDL_Rect A1 = {210,220,20,70};
+                SDL_Rect A2 = {250,220,20,70};
+                SDL_Rect A3 = {230,200,20,20};
+                SDL_Rect A4 = {230,240,20,20};
+                SDL_Rect D11 = {280,200,20,90};
+                SDL_Rect D12 = {280,200,50,20};
+                SDL_Rect D13 = {280,270,50,20};
+                SDL_Rect D14 = {330,220,20,50};
+
+
+                SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+                SDL_RenderClear(renderer);
+
+                SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+                SDL_RenderFillRect(renderer, &rectangle);
+
+                SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+                SDL_RenderFillRect(renderer, &D1);
+                SDL_RenderFillRect(renderer, &D2);
+                SDL_RenderFillRect(renderer, &D3);
+                SDL_RenderFillRect(renderer, &D4);
+                SDL_RenderFillRect(renderer, &E1);
+                SDL_RenderFillRect(renderer, &E2);
+                SDL_RenderFillRect(renderer, &E3);
+                SDL_RenderFillRect(renderer, &E4);
+                SDL_RenderFillRect(renderer, &A1);
+                SDL_RenderFillRect(renderer, &A2);
+                SDL_RenderFillRect(renderer, &A3);
+                SDL_RenderFillRect(renderer, &A4);
+                SDL_RenderFillRect(renderer, &D11);
+                SDL_RenderFillRect(renderer, &D12);
+                SDL_RenderFillRect(renderer, &D13);
+                SDL_RenderFillRect(renderer, &D14);
+                
+                
+                SDL_RenderPresent(renderer);
+                SDL_Delay(5000);
+
+            }
+        // Compute elapsed time since the begin of current frame:
+        frame_delay = frame_rate_ms - (SDL_GetTicks() - frame_start);
+
+        // Wait for some time in order to stabilise frame rate to ~20ms:
+        if (frame_delay > 0)
+        SDL_Delay(frame_delay);
+
+        // Print a warning if the game is too slow with respect to the frame rate:
+        if (frame_delay > frame_rate_ms)
+        printf("WARNING: frame rate drop: %d ms\n", frame_delay - frame_rate_ms);
+
+        // Check for Quit event:
+        
+        SDL_PollEvent(&event);
+        iter++;
+
+        return 0;
+    } while (!(event.type == SDL_QUIT));
+    
+}
+
+
+
+
+
     /*
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
     */
-    return EXIT_SUCCESS;
     
-}
+    
+
 /*
 int MainSDLWindow::getRenderer(){
 
@@ -162,19 +190,12 @@ MainSDLWindow::MainSDLWindow(){
 }
 
 MainSDLWindow::~MainSDLWindow(){
-    //delete window;
-    //delete renderer;
+
     }
 
 
 int main(void){
     MainSDLWindow main_window;
     main_window.init();
-    main_window.game();
-<<<<<<< HEAD
-      
-        
-=======
->>>>>>> 4e0bad529cd1813c18d66779b49307ee8272838c
-    
+    main_window.game(20,7);
 }
