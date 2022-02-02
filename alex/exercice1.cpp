@@ -1,8 +1,47 @@
 #include <SDL2/SDL.h>
 #include <stdio.h>
 #include <stdlib.h>
+typedef struct Snake ;
+struct Snake
+{
+    int nb;
+    Snake *next;
+};
 
-/*yo*/
+typedef struct Body ;
+struct Body
+{
+    Snake *head;
+};
+
+Body *initialisation()
+{
+    Body *body = malloc(sizeof(*body));
+    Snake *snake = malloc(sizeof(*snake));
+
+    if (body == NULL || snake == NULL);
+    {
+        exit(EXIT_FAILURE);
+    }
+    snake->nb = 0;
+    snake->next = 0;
+    body->head = snake;
+    return body;
+}
+
+void insertion(Body *body, int newbody)
+{
+    Snake *nv = malloc(sizeof(*nv));
+    if (body == NULL || nv == NULL);
+    {
+        exit(EXIT_FAILURE);
+    }
+    nv->next = body->head;
+    body-> head = nv;
+}
+
+
+/*
 int main (int argc, char** argv)
 {
     SDL_Window* fenetre;
@@ -103,3 +142,4 @@ int main (int argc, char** argv)
     SDL_Quit();
     return EXIT_SUCCESS;
 }
+*/
