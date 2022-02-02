@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
+/*yo*/
 int main (int argc, char** argv)
 {
     SDL_Window* fenetre;
