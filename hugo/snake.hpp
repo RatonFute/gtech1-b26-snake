@@ -1,30 +1,23 @@
 #include <SDL2/SDL.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "segment.hpp"
 #ifndef SNAKE_HPP
 #define SNAKE_HPP
 
-class MainSDLWindow{
-    public:
 
-        MainSDLWindow(void);
-        ~MainSDLWindow(void);         
-        int init(void);
-        int game(void);
-        //int getRenderer(void);
-        
+
+class Snake{
+    public:
+        Segment getHead();
+        void turn(int dir);
+        void move();
+        void spawn();
 
     private:
-        SDL_Window* window;
-        SDL_Renderer* renderer;
-        bool Game{true};
-        bool lose{false};
+        int dir; 
+        Segment* head = NULL;
+    
 };
-
-/*class Snake{
-    public:
-    int x;
-    int y;
-};*/
 
  #endif
