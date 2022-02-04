@@ -1,6 +1,3 @@
-#include <SDL2/SDL.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include "segment.hpp"
 #ifndef SNAKE_HPP
 #define SNAKE_HPP
@@ -9,15 +6,17 @@
 
 class Snake{
     public:
-        Segment getHead();
+        Snake(int size,int dir);
         void turn(int dir);
+        int spawn(int x,int y,int dir);
+        void addsegment();  
         void move();
-        void spawn();
-
+        void draw();
     private:
-        int dir; 
-        Segment* head = NULL;
-    
+        Segment* head=NULL;
+        SDL_Renderer* renderer;
+        SDL_Window* window;
+     
 };
 
  #endif

@@ -5,7 +5,6 @@ class MainSDLWindow{
         MainSDLWindow();
         ~MainSDLWindow();
         int init(void);
-        void render();
         void update();
         void clean();
         SDL_Renderer* getRenderer();

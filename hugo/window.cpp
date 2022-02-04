@@ -37,6 +37,7 @@ int MainSDLWindow::init()
     return isRunning = true;
 }
 
+
 void MainSDLWindow::update()
 {
         SDL_RenderPresent(renderer);

@@ -1,20 +1,23 @@
 #include <iostream>
 #include "snake.hpp"
+#define PAS 10
+#define SIZE 20
 
+int Snake::spawn(int x,int y,int dir){
+    int posX=x;
+    int posY=y;
 
-Segment Snake::getHead(){
-    {return *head;}
-}
+    Segment *newSegment = new Segment(x,y,2);
+    
+    newSegment->setX(posX);
+    newSegment->setY(posY);
+    newSegment->setDir(dir);
+    newSegment->end = head;
+    head = newSegment;
+    
+}   
 
-void Snake::move()
-{
-    delBack();
-    growAtHead();
-}
-
-void Snake::turn(int dir)
-{
-
+void Snake::turn(int dir){
     switch (dir)
     {
     case 0:
@@ -38,66 +41,120 @@ void Snake::turn(int dir)
     }
 }
 
-void Snake::growBack()
-{
+void Snake::addsegment(){
+
     Segment *loop = head;
 
-    while (loop->next != NULL)
-    {
-        loop = loop->next;
+    while(loop->end != NULL){
+        loop=loop->end;
     }
 
-    int xPos = loop->getX();
-    int yPos = loop->getY();
-
+    int posX=loop->getX();
+    int posY=loop->getY();
     switch (loop->getDir())
     {
     case 0:
-        yPos += PAS;
+        posY += PAS;
         break;
     case 1:
-        yPos -= PAS;
+        posY -= PAS;
         break;
     case 2:
-        xPos -= PAS;
+        posX -= PAS;
         break;
     case 3:
-        xPos += PAS;
+        posX += PAS;
         break;
     default:
         break;
     }
 
-    Segment *newSegment  = new Segment(xPos, yPos, loop->getDir());
 
-    newSegment->setY(yPos);
+    Segment *newSegment = new Segment(posX,posY,loop->getDir());
+    newSegment->setX(posX);
+    newSegment->setY(posY);
     newSegment->setDir(head->getDir());
-    newSegment->next = head;
-    loop->next = newSegment;
-
-
-
+    
 }
 
+void Snake::move(){
 
-void Snake::delBack()
-{
+   int posY=head->getY();
+   int posX=head->getX();
+ 
+    switch (head->getDir())
+    {
+    case 0:
+        posY -= PAS;
+        break;
+    case 1:
+        posY += PAS;
+        break;
+    case 2:
+        posX += PAS;
+        break;
+    case 3:
+        posX -= PAS;
+        break;
+    default:
+        break;
+    }
+
+
+    Segment *newSegment = new Segment(posX,posY,head->getDir());
+    newSegment->setX(posX);
+    newSegment->setY(posY);
+    newSegment->setDir(head->getDir());
+    newSegment->end = head;
+    head = newSegment;
+
+    
+
     Segment *loop = head;
     Segment *last = NULL;
-    if(head->next == NULL)
+    if(head->end == NULL)
     {
         head = NULL;
     }
     else
     {
-        while(loop->next->next != NULL)
+        while(loop->end->end != NULL)
         {
-            loop = loop->next;
+            loop = loop->end;
         }
-        last = loop->next;
-        loop->next = NULL;
+        last = loop->end;
+        loop->end = NULL;
         delete last;
     }
 
 
+}
+
+void Snake::draw(){
+
+    SDL_Rect Heada;
+    Heada.x=head->getX();
+    Heada.y=head->getY();
+    Heada.w=SIZE;
+    Heada.h=SIZE;
+     
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+    SDL_RenderClear(renderer);
+
+    SDL_SetRenderDrawColor(renderer, 0, 150, 0, 255);
+    SDL_RenderFillRect(renderer, &Heada);
+/*
+    SDL_Rect Body;
+    Body.x=
+
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+    SDL_RenderClear(renderer);
+
+    SDL_SetRenderDrawColor(renderer, 0, 200, 0, 255);
+    SDL_RenderFillRect(renderer, &body);
+    
+*/
+    
+    SDL_RenderPresent(renderer);
+    SDL_Delay(20);
 }

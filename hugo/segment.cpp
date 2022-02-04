@@ -6,7 +6,7 @@ Segment::Segment(int x, int y, int dir)
     this->x =x;
     this->y =x;
     this->dir =dir;
-    this->next = NULL;
+    this->end = NULL;
 
 }
 

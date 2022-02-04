@@ -1,28 +1,21 @@
 #include "window.hpp"
 #include "snake.hpp"
-#include "segment.hpp"
 #include "window.cpp"
 #include "snake.cpp"
-#include "segment.cpp"
-
-
-
 #include <SDL2/SDL.h>
-#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
+#define PAS 10
+#define SIZE 20
 
 
-
-
-Game window;
 int go = true;
 
 int main(void){
     
 
-    Snake *snake = new Snake(20,2);
-    
+    Snake *snake = new Snake(SIZE,2);
+    MainSDLWindow window;
 
 
 

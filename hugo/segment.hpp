@@ -3,7 +3,7 @@
 
 class Segment{
     public:
-    Segment* next;
+    Segment* end;
     Segment(int x,int y,int dir);
     ~Segment(void);  
     int getX();
