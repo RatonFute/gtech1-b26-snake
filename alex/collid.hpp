@@ -1,17 +1,17 @@
 #include "SDL2/SDL.h"
 #include "window.hpp"
-#include "draw.hpp"
+#include "drawable.hpp"
 
 #ifndef collid.hpp
 #define collid.hpp
 
 namespace SnakeGame {
 
-struct collid: draw {
+struct collide: draw {
 
-    collid(int x, int y)
+    collide(int x, int y);
     
-    bool collidesWith(collid & other);
+    bool collidesWith(collide & other);
 };
 
 }

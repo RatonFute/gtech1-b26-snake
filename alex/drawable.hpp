@@ -1,17 +1,19 @@
 #include "SDL2/SDL.h"
 #include "window.hpp"
 
-#ifndef draw.hpp
-#define draw.hpp
+#ifndef drawable.hpp
+#define drawable.hpp
 
 namespace SnakeGame{
 
-struct draw{
+struct draw {
     int m_x;
     int m_y;
+
+    
     draw(int x, int y): m_x(x),m_y(y) {}
 
-    virtual void draw(Screen & screen) = 0; 
+    virtual void Draw(Screen & screen) = 0; 
 };
 
 }
