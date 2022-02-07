@@ -1,9 +1,18 @@
 #include <iostream>
+#include <SDL2/SDL.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "snake.hpp"
-#define PAS 10
+
+#define STEP 10
 #define SIZE 20
 
-int Snake::spawn(int x,int y,int dir){
+Snake::Snake(int size,int dir){}
+Snake::~Snake(){}
+
+//initiate the snake
+void Snake::spawn(int x,int y,int dir){
+    
     int posX=x;
     int posY=y;
 
@@ -48,27 +57,26 @@ void Snake::addsegment(){
     while(loop->end != NULL){
         loop=loop->end;
     }
-
+    
     int posX=loop->getX();
     int posY=loop->getY();
     switch (loop->getDir())
     {
     case 0:
-        posY += PAS;
+        posY += STEP;
         break;
     case 1:
-        posY -= PAS;
+        posY -= STEP;
         break;
     case 2:
-        posX -= PAS;
+        posX -= STEP;
         break;
     case 3:
-        posX += PAS;
+        posX += STEP;
         break;
     default:
         break;
     }
-
 
     Segment *newSegment = new Segment(posX,posY,loop->getDir());
     newSegment->setX(posX);
@@ -85,16 +93,16 @@ void Snake::move(){
     switch (head->getDir())
     {
     case 0:
-        posY -= PAS;
+        posY -= STEP;
         break;
     case 1:
-        posY += PAS;
+        posY += STEP;
         break;
     case 2:
-        posX += PAS;
+        posX += STEP;
         break;
     case 3:
-        posX -= PAS;
+        posX -= STEP;
         break;
     default:
         break;
@@ -144,6 +152,7 @@ void Snake::draw(){
     SDL_SetRenderDrawColor(renderer, 0, 150, 0, 255);
     SDL_RenderFillRect(renderer, &Heada);
 /*
+
     SDL_Rect Body;
     Body.x=
 

@@ -1,11 +1,10 @@
-#ifndef SEGMENT_HPP
-#define SEGMENT_HPP
+#pragma once
 
 class Segment{
     public:
     Segment* end;
     Segment(int x,int y,int dir);
-    ~Segment(void);  
+    ~Segment();  
     int getX();
     int getY();
     int getDir();
@@ -19,6 +18,3 @@ class Segment{
     int dir;
 
 };
-
-
-#endif

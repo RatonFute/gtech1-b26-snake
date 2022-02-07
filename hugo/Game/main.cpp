@@ -1,28 +1,22 @@
+
+#include <iostream>
 #include "window.hpp"
 #include "snake.hpp"
-#include "window.cpp"
-#include "snake.cpp"
-#include <SDL2/SDL.h>
-#include <stdio.h>
-#include <stdlib.h>
-#define PAS 10
+
 #define SIZE 20
+#define STARTDIR 2
 
-
-int go = true;
+int play = true;
 
 int main(void){
     
-
-    Snake *snake = new Snake(SIZE,2);
+    
     MainSDLWindow window;
-
-
-
-    while (go == true)
+    Snake *snake =new Snake(SIZE,STARTDIR);
+    
+    while (play == true)
     {   
-        
-        
+      
         snake->move();
 
         const Uint8 *Keystates = SDL_GetKeyboardState(NULL);
@@ -46,8 +40,6 @@ int main(void){
             snake->turn(3);
             snake->move();
         }
-
-    
         
         // Get the next event
         SDL_Event event;
