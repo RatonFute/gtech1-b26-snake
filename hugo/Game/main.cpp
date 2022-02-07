@@ -13,12 +13,11 @@ int main(void){
     
     MainSDLWindow window;
     Snake *snake =new Snake(SIZE,STARTDIR);
+    window.init();
     
     while (play == true)
     {   
       
-        snake->move();
-
         const Uint8 *Keystates = SDL_GetKeyboardState(NULL);
         if (Keystates[SDL_SCANCODE_UP]) 
         {
@@ -40,6 +39,7 @@ int main(void){
             snake->turn(3);
             snake->move();
         }
+        window.update();
         
         // Get the next event
         SDL_Event event;
