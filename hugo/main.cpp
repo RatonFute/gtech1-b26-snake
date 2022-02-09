@@ -1,8 +1,13 @@
 
 #include <iostream>
+#include <SDL2/SDL.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "window.hpp"
 #include "snake.hpp"
+#include "fruit.hpp"
 
+#define WINDOWSIZE 600
 #define SIZE 20
 #define STARTDIR 2
 
@@ -13,14 +18,20 @@ int main(void){
     
     MainSDLWindow window;
     Snake *snake =new Snake(SIZE,STARTDIR);
-    window.init();
-    snake->spawn(50,50,2);
+    Fruit *fruit = new Fruit();
+    window.init("Snake" , SDL_WINDOWPOS_CENTERED , SDL_WINDOWPOS_CENTERED , WINDOWSIZE , WINDOWSIZE, 0);
+    snake->spawn(SIZE,SIZE,2);
+    fruit->spawn(WINDOWSIZE,SIZE);
     while (play == true)
     {   
         
 
         snake->move();
         const Uint8 *state = SDL_GetKeyboardState(NULL);
+        if (state[SDL_SCANCODE_Q]) 
+        {
+            snake->addsegment();
+        }
         if (state[SDL_SCANCODE_UP]) 
         {
             
@@ -50,6 +61,7 @@ int main(void){
         SDL_RenderClear(window.getRenderer());
         SDL_SetRenderDrawColor(window.getRenderer(),255,255,255,SDL_ALPHA_OPAQUE);
         snake->draw(window.getRenderer());
+        fruit->draw(window.getRenderer(),SIZE);
         window.update();
         
                 // Get the next event

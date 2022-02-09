@@ -5,7 +5,7 @@
 #include "snake.hpp"
 #include "window.hpp"
 
-#define STEP 1
+#define STEP 5
 #define SIZE 20
 
 Snake::Snake(int size,int dir){}
@@ -32,7 +32,6 @@ void Snake::turn(int dir){
     {
     case 0:
         if (head->getDir() != 1)
-        std::cout <<  "ca tourne " << std::endl;
             head->setDir(dir);
         break;
     case 1:
@@ -81,10 +80,9 @@ void Snake::addsegment(){
     }
 
     Segment *newSegment = new Segment(posX,posY,loop->getDir());
-    newSegment->setX(posX);
     newSegment->setY(posY);
     newSegment->setDir(head->getDir());
-    
+    loop->end = newSegment;
 }
 
 void Snake::move(){
@@ -147,13 +145,19 @@ void Snake::draw(SDL_Renderer* renderer){
     Heada.y=head->getY();
     Heada.w=SIZE;
     Heada.h=SIZE;
-     
-    
-
     
     SDL_RenderFillRect(renderer, &Heada);
     SDL_RenderDrawRect(renderer, &Heada);
 
+    Segment *loop = head;
+    while(loop->end != NULL){
+        SDL_SetRenderDrawColor(renderer,0, 70, 0, 255);
+        SDL_Rect body;
+        body = {loop->getX(),loop->getY(),SIZE,SIZE};
+        SDL_RenderFillRect(renderer, &body);
+        SDL_RenderDrawRect(renderer, &body);
+        loop = loop->end;  
+    }
     
 /*
     SDL_Rect Body;

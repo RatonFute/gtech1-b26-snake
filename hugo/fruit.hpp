@@ -1,18 +1,16 @@
+#pragma once
 #include <SDL2/SDL.h>
 #include <stdio.h>
 #include <stdlib.h>
-#ifndef FRUIT_HPP
-#define FRUIT_HPP
 
 class Fruit{
     public:
-    Fruit(void);
-    ~Fruit(void);  
-    int x;
-    int y;
-
-
+        Fruit();
+        ~Fruit(); 
+        void spawn(int windowSize,int size);
+        void draw(SDL_Renderer* renderer,int size);
+        void destroy();
+    private: 
+        int x;
+        int y;
 };
-
-
-#endif
