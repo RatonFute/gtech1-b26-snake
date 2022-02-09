@@ -2,18 +2,10 @@
 #include "window.hpp"
 #include "drawable.hpp"
 
-#ifndef collid.hpp
-#define collid.hpp
 
-namespace SnakeGame {
-
-struct collide: draw {
+struct collide: Drawable{
 
     collide(int x, int y);
     
     bool collidesWith(collide & other);
 };
-
-}
-
-#endif

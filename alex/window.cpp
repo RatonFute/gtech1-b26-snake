@@ -5,11 +5,8 @@
 #include "window.hpp"
 
 
-Screen::Screen(){}
-
-Screen::~Screen(){}
-
-
+int Screen::S_WIDTH = 800;
+int Screen::S_HEIGHT = 600;
 
 bool Screen::init(){
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -18,7 +15,7 @@ bool Screen::init(){
     }
 
     fenetre = SDL_CreateWindow("Snake",SDL_WINDOWPOS_CENTERED,
-    SDL_WINDOWPOS_CENTERED, 1280, 720, 0);
+    SDL_WINDOWPOS_CENTERED, S_WIDTH, S_HEIGHT, 0);
 
     if (!fenetre) {
         SDL_Log("Fenêtre Pas La");
