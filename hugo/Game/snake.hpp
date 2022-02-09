@@ -13,7 +13,7 @@ class Snake{
         void spawn(int x,int y,int dir);
         void addsegment();
         void move();
-        void draw();
+        void draw(SDL_Renderer* renderer);
     private:
         Segment* head=NULL;
         SDL_Renderer* renderer;

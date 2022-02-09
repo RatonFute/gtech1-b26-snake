@@ -21,7 +21,7 @@ int MainSDLWindow::init()
     }
     
      // Création de la fenêtre :
-    window = SDL_CreateWindow("Snakee" , SDL_WINDOWPOS_CENTERED , SDL_WINDOWPOS_CENTERED , 600 , 600, 0);
+    window = SDL_CreateWindow("Snake" , SDL_WINDOWPOS_CENTERED , SDL_WINDOWPOS_CENTERED , 600 , 600, 0);
     if(window == NULL) 
     {
         printf("Erreur lors de la creation d'une fenetre : %s",SDL_GetError());
@@ -40,7 +40,7 @@ int MainSDLWindow::init()
 
 void MainSDLWindow::update()
 {
-        SDL_RenderPresent(renderer);
+    SDL_RenderPresent(renderer);
 }
 
 
